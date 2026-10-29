@@ -1,7 +1,15 @@
 const whatsappNumber = document.documentElement.dataset.whatsappNumber;
 const whatsappMessage = 'Olá! Vim pelo site da DC Digital e quero saber mais.';
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-const heroConfig = { searchTerm: 'pizzaria perto de mim', weeklyReach: 127 };
+const heroConfig = {
+  searchTerms: [
+    'restaurante perto de mim',
+    'clínica odontológica',
+    'barbearia aberta agora',
+    'esmalteria no centro'
+  ],
+  weeklyReach: 127
+};
 
 document.querySelectorAll('.whatsapp-link').forEach((link) => {
   link.href = whatsappUrl;
@@ -43,7 +51,6 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
 
 const heroVisual = document.querySelector('.hero-visual-modern');
-const heroCard = document.querySelector('[data-hero-card]');
 const searchText = document.querySelector('[data-search-text]');
 const counter = document.querySelector('[data-counter]');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -51,16 +58,37 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 function typeSearchTerm() {
   if (!searchText) return;
   if (reduceMotion) {
-    searchText.textContent = heroConfig.searchTerm;
+    searchText.textContent = heroConfig.searchTerms[0];
     return;
   }
-  let index = 0;
-  const typeNext = () => {
-    searchText.textContent = heroConfig.searchTerm.slice(0, index);
-    index += 1;
-    if (index <= heroConfig.searchTerm.length) window.setTimeout(typeNext, 75);
+  let termIdx = 0;
+  let charIdx = 0;
+  let deleting = false;
+
+  const step = () => {
+    const currentTerm = heroConfig.searchTerms[termIdx];
+    if (!deleting) {
+      charIdx += 1;
+      searchText.textContent = currentTerm.slice(0, charIdx);
+      if (charIdx < currentTerm.length) {
+        window.setTimeout(step, 65);
+      } else {
+        deleting = true;
+        window.setTimeout(step, 2200);
+      }
+    } else {
+      charIdx -= 1;
+      searchText.textContent = currentTerm.slice(0, charIdx);
+      if (charIdx > 0) {
+        window.setTimeout(step, 32);
+      } else {
+        deleting = false;
+        termIdx = (termIdx + 1) % heroConfig.searchTerms.length;
+        window.setTimeout(step, 350);
+      }
+    }
   };
-  typeNext();
+  step();
 }
 
 function animateCounter() {
@@ -70,10 +98,11 @@ function animateCounter() {
     return;
   }
   const start = performance.now();
-  const duration = 1500;
+  const duration = 1600;
   const tick = (now) => {
     const progress = Math.min((now - start) / duration, 1);
-    counter.textContent = `+${Math.floor(progress * heroConfig.weeklyReach)}`;
+    const eased = 1 - Math.pow(1 - progress, 3);
+    counter.textContent = `+${Math.floor(eased * heroConfig.weeklyReach)}`;
     if (progress < 1) window.requestAnimationFrame(tick);
   };
   window.requestAnimationFrame(tick);
@@ -88,16 +117,4 @@ if (heroVisual) {
     observer.disconnect();
   }, { threshold: 0.2 });
   heroObserver.observe(heroVisual);
-}
-
-if (heroCard && heroVisual && !reduceMotion && window.matchMedia('(min-width: 901px)').matches) {
-  heroVisual.addEventListener('pointermove', (event) => {
-    const bounds = heroVisual.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    heroCard.style.transform = `rotateX(${y * -3}deg) rotateY(${x * 4}deg) rotateZ(1.5deg)`;
-  });
-  heroVisual.addEventListener('pointerleave', () => {
-    heroCard.style.transform = 'rotateX(0deg) rotateY(0deg) rotateZ(1.5deg)';
-  });
 }

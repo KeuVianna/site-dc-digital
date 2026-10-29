@@ -1,11 +1,8 @@
 (() => {
   const config = {
-    tiltMax: 8,
-    lerp: 0.12,
-    spotlightSize: 360,
-    magneticRange: 110,
-    magneticStrength: 0.18,
-    parallaxScroll: 0.08,
+    tiltMax: 7,
+    lerp: 0.1,
+    parallaxScroll: 0.06,
   };
 
   const visual = document.querySelector('.hero-visual-modern');
@@ -32,25 +29,39 @@
     pointers.currentY = lerp(pointers.currentY, pointers.targetY, config.lerp);
     const tiltX = pointers.currentY * -config.tiltMax;
     const tiltY = pointers.currentX * config.tiltMax;
-    card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(1.5deg)`;
-    visual.style.setProperty('--parallax-x', `${pointers.currentX * 7}px`);
-    visual.style.setProperty('--parallax-y', `${pointers.currentY * 7}px`);
-    frame = active ? requestAnimationFrame(render) : 0;
+    visual.style.setProperty('--tilt-x', `${tiltX.toFixed(2)}deg`);
+    visual.style.setProperty('--tilt-y', `${tiltY.toFixed(2)}deg`);
+    visual.style.setProperty('--parallax-x', `${(pointers.currentX * 8).toFixed(1)}px`);
+    visual.style.setProperty('--parallax-y', `${(pointers.currentY * 8).toFixed(1)}px`);
+
+    if (
+      !active &&
+      Math.abs(pointers.currentX) < 0.01 &&
+      Math.abs(pointers.currentY) < 0.01
+    ) {
+      visual.style.setProperty('--tilt-x', '0deg');
+      visual.style.setProperty('--tilt-y', '0deg');
+      visual.style.setProperty('--parallax-x', '0px');
+      visual.style.setProperty('--parallax-y', '0px');
+      frame = 0;
+      return;
+    }
+    frame = requestAnimationFrame(render);
   };
 
   const start = () => {
-    if (!active && !reduceMotion && desktop.matches) {
-      active = true;
+    active = true;
+    if (!frame && !reduceMotion && desktop.matches) {
       frame = requestAnimationFrame(render);
     }
   };
 
   const stop = () => {
     active = false;
-    if (frame) cancelAnimationFrame(frame);
-    frame = 0;
     resetPointer();
-    if (!reduceMotion) card.style.transform = 'rotateX(0deg) rotateY(0deg) rotateZ(1.5deg)';
+    if (!frame && !reduceMotion && desktop.matches) {
+      frame = requestAnimationFrame(render);
+    }
   };
 
   const setPointer = (event) => {
@@ -69,18 +80,6 @@
   visual.addEventListener('pointerenter', start);
   visual.addEventListener('pointerleave', stop);
 
-  const magnetic = visual.querySelector('[data-magnetic]');
-  visual.addEventListener('pointermove', (event) => {
-    if (!magnetic || reduceMotion || !desktop.matches) return;
-    const bounds = magnetic.getBoundingClientRect();
-    const distanceX = event.clientX - (bounds.left + bounds.width / 2);
-    const distanceY = event.clientY - (bounds.top + bounds.height / 2);
-    const distance = Math.hypot(distanceX, distanceY);
-    if (distance < config.magneticRange) magnetic.style.transform = `translate(${distanceX * config.magneticStrength}px, ${distanceY * config.magneticStrength}px)`;
-    else magnetic.style.transform = '';
-  });
-  magnetic?.addEventListener('pointerleave', () => { magnetic.style.transform = ''; });
-
   const pins = visual.querySelectorAll('.map-pin');
   pins.forEach((pin) => {
     pin.addEventListener('click', () => pin.classList.toggle('pin-selected'));
@@ -95,7 +94,6 @@
   const visibilityObserver = new IntersectionObserver(([entry]) => {
     if (entry.isIntersecting) {
       visual.classList.add('hero-interactions-active');
-      if (!reduceMotion) start();
     } else {
       visual.classList.remove('hero-interactions-active');
       stop();
@@ -105,6 +103,6 @@
 
   window.addEventListener('scroll', () => {
     if (!desktop.matches || reduceMotion) return;
-    visual.style.setProperty('--scroll-parallax', `${Math.min(window.scrollY * config.parallaxScroll, 32)}px`);
+    visual.style.setProperty('--scroll-parallax', `${Math.min(window.scrollY * config.parallaxScroll, 24)}px`);
   }, { passive: true });
 })();
