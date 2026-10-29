@@ -53,14 +53,9 @@ document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe
 const heroVisual = document.querySelector('.hero-visual-modern');
 const searchText = document.querySelector('[data-search-text]');
 const counter = document.querySelector('[data-counter]');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function typeSearchTerm() {
   if (!searchText) return;
-  if (reduceMotion) {
-    searchText.textContent = heroConfig.searchTerms[0];
-    return;
-  }
   let termIdx = 0;
   let charIdx = 0;
   let deleting = false;
@@ -71,20 +66,20 @@ function typeSearchTerm() {
       charIdx += 1;
       searchText.textContent = currentTerm.slice(0, charIdx);
       if (charIdx < currentTerm.length) {
-        window.setTimeout(step, 65);
+        window.setTimeout(step, 60);
       } else {
         deleting = true;
-        window.setTimeout(step, 2200);
+        window.setTimeout(step, 1600);
       }
     } else {
       charIdx -= 1;
       searchText.textContent = currentTerm.slice(0, charIdx);
       if (charIdx > 0) {
-        window.setTimeout(step, 32);
+        window.setTimeout(step, 28);
       } else {
         deleting = false;
         termIdx = (termIdx + 1) % heroConfig.searchTerms.length;
-        window.setTimeout(step, 350);
+        window.setTimeout(step, 300);
       }
     }
   };
@@ -93,28 +88,31 @@ function typeSearchTerm() {
 
 function animateCounter() {
   if (!counter) return;
-  if (reduceMotion) {
-    counter.textContent = `+${heroConfig.weeklyReach}`;
-    return;
-  }
+  let currentReach = heroConfig.weeklyReach;
   const start = performance.now();
-  const duration = 1600;
+  const duration = 1500;
   const tick = (now) => {
     const progress = Math.min((now - start) / duration, 1);
     const eased = 1 - Math.pow(1 - progress, 3);
-    counter.textContent = `+${Math.floor(eased * heroConfig.weeklyReach)}`;
-    if (progress < 1) window.requestAnimationFrame(tick);
+    counter.textContent = `+${Math.floor(eased * currentReach)}`;
+    if (progress < 1) {
+      window.requestAnimationFrame(tick);
+    }
   };
   window.requestAnimationFrame(tick);
+
+  // Live increment every few seconds to simulate real-time local reach
+  window.setInterval(() => {
+    currentReach += 1;
+    counter.textContent = `+${currentReach}`;
+    counter.classList.remove('counter-bump');
+    void counter.offsetWidth;
+    counter.classList.add('counter-bump');
+  }, 4500);
 }
 
 if (heroVisual) {
-  const heroObserver = new IntersectionObserver(([entry], observer) => {
-    if (!entry.isIntersecting) return;
-    heroVisual.classList.add('hero-active');
-    typeSearchTerm();
-    animateCounter();
-    observer.disconnect();
-  }, { threshold: 0.2 });
-  heroObserver.observe(heroVisual);
+  heroVisual.classList.add('hero-active');
+  typeSearchTerm();
+  animateCounter();
 }

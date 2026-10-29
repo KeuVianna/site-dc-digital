@@ -1,7 +1,7 @@
 (() => {
   const config = {
-    tiltMax: 7,
-    lerp: 0.1,
+    tiltMax: 8,
+    lerp: 0.12,
     parallaxScroll: 0.06,
   };
 
@@ -9,7 +9,6 @@
   const card = document.querySelector('[data-hero-card]');
   if (!visual || !card) return;
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const desktop = window.matchMedia('(min-width: 901px)');
   const pointers = { currentX: 0, currentY: 0, targetX: 0, targetY: 0 };
   let active = false;
@@ -31,8 +30,8 @@
     const tiltY = pointers.currentX * config.tiltMax;
     visual.style.setProperty('--tilt-x', `${tiltX.toFixed(2)}deg`);
     visual.style.setProperty('--tilt-y', `${tiltY.toFixed(2)}deg`);
-    visual.style.setProperty('--parallax-x', `${(pointers.currentX * 8).toFixed(1)}px`);
-    visual.style.setProperty('--parallax-y', `${(pointers.currentY * 8).toFixed(1)}px`);
+    visual.style.setProperty('--parallax-x', `${(pointers.currentX * 10).toFixed(1)}px`);
+    visual.style.setProperty('--parallax-y', `${(pointers.currentY * 10).toFixed(1)}px`);
 
     if (
       !active &&
@@ -51,7 +50,7 @@
 
   const start = () => {
     active = true;
-    if (!frame && !reduceMotion && desktop.matches) {
+    if (!frame && desktop.matches) {
       frame = requestAnimationFrame(render);
     }
   };
@@ -59,13 +58,13 @@
   const stop = () => {
     active = false;
     resetPointer();
-    if (!frame && !reduceMotion && desktop.matches) {
+    if (!frame && desktop.matches) {
       frame = requestAnimationFrame(render);
     }
   };
 
   const setPointer = (event) => {
-    if (reduceMotion || !desktop.matches) return;
+    if (!desktop.matches) return;
     const bounds = visual.getBoundingClientRect();
     const x = event.clientX - bounds.left;
     const y = event.clientY - bounds.top;
@@ -91,18 +90,10 @@
     });
   });
 
-  const visibilityObserver = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      visual.classList.add('hero-interactions-active');
-    } else {
-      visual.classList.remove('hero-interactions-active');
-      stop();
-    }
-  }, { threshold: 0.15 });
-  visibilityObserver.observe(visual);
+  visual.classList.add('hero-interactions-active');
 
   window.addEventListener('scroll', () => {
-    if (!desktop.matches || reduceMotion) return;
+    if (!desktop.matches) return;
     visual.style.setProperty('--scroll-parallax', `${Math.min(window.scrollY * config.parallaxScroll, 24)}px`);
   }, { passive: true });
 })();
