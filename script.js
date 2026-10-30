@@ -1,6 +1,5 @@
-const whatsappNumber = document.documentElement.dataset.whatsappNumber;
-const whatsappMessage = 'Olá! Vim pelo site da DC Digital e quero saber mais.';
-const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+const whatsappNumber = document.documentElement.dataset.whatsappNumber || '5577999172059';
+const defaultWhatsappMessage = 'Olá! Vim pelo site da DC Digital e quero saber mais.';
 const heroConfig = {
   searchTerms: [
     'restaurante perto de mim',
@@ -12,7 +11,8 @@ const heroConfig = {
 };
 
 document.querySelectorAll('.whatsapp-link').forEach((link) => {
-  link.href = whatsappUrl;
+  const customMessage = link.getAttribute('data-whatsapp-text') || defaultWhatsappMessage;
+  link.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(customMessage)}`;
   link.target = '_blank';
   link.rel = 'noreferrer';
 });
@@ -21,23 +21,27 @@ const header = document.querySelector('.site-header');
 const menuToggle = document.querySelector('.menu-toggle');
 const mobileNav = document.querySelector('.mobile-nav');
 
-window.addEventListener('scroll', () => {
-  header.classList.toggle('scrolled', window.scrollY > 20);
-}, { passive: true });
+if (header) {
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+}
 
-menuToggle.addEventListener('click', () => {
-  const isOpen = mobileNav.classList.toggle('open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
-  menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
-});
-
-document.querySelectorAll('.mobile-nav a').forEach((link) => {
-  link.addEventListener('click', () => {
-    mobileNav.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Abrir menu');
+if (menuToggle && mobileNav) {
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
   });
-});
+
+  document.querySelectorAll('.mobile-nav a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Abrir menu');
+    });
+  });
+}
 
 const revealObserver = new IntersectionObserver((entries, observer) => {
   entries.forEach((entry) => {
@@ -101,7 +105,6 @@ function animateCounter() {
   };
   window.requestAnimationFrame(tick);
 
-  // Live increment every few seconds to simulate real-time local reach
   window.setInterval(() => {
     currentReach += 1;
     counter.textContent = `+${currentReach}`;
