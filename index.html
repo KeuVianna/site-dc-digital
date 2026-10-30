@@ -23,9 +23,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=5" />
-    <script defer src="script.js?v=5"></script>
-    <script defer src="hero-interactions.js?v=5"></script>
+    <link rel="stylesheet" href="styles.css?v=6" />
+    <script defer src="script.js?v=6"></script>
+    <script defer src="hero-interactions.js?v=6"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -82,17 +82,18 @@
   </head>
   <body>
     <header class="site-header" id="top">
+      <div class="scroll-progress-bar" data-scroll-progress aria-hidden="true"></div>
       <div class="container header-inner">
         <a class="brand" href="#top" aria-label="DC Digital, início">
           <img class="brand-logo" src="imagens/logo-symbol.png" alt="DC Digital" />
         </a>
         <nav class="desktop-nav" aria-label="Navegação principal">
           <a href="#servicos">Serviços</a>
+          <a href="#indoor-showcase">Telas Indoor</a>
           <a href="#comparativo">Diferenciais</a>
           <a href="#portfolio">Portfólio</a>
-          <a href="#processo">Como funciona</a>
+          <a href="#diagnostico">Diagnóstico</a>
           <a href="#duvidas">Dúvidas</a>
-          <a href="#contato">Contato</a>
         </nav>
         <a class="button button-small button-primary header-cta whatsapp-link" data-whatsapp-text="Olá! Vim pelo topo do site da DC Digital e quero fortalecer a presença digital do meu negócio." href="#contato">
           Falar no WhatsApp <span aria-hidden="true">↗</span>
@@ -103,9 +104,10 @@
       </div>
       <nav class="mobile-nav" id="mobile-menu" aria-label="Navegação móvel">
         <a href="#servicos">Serviços</a>
+        <a href="#indoor-showcase">Telas Indoor</a>
         <a href="#comparativo">Diferenciais</a>
         <a href="#portfolio">Portfólio</a>
-        <a href="#processo">Como funciona</a>
+        <a href="#diagnostico">Diagnóstico</a>
         <a href="#duvidas">Dúvidas</a>
         <a href="#contato">Contato</a>
         <a class="button button-primary whatsapp-link" data-whatsapp-text="Olá! Vim pelo menu do site da DC Digital e quero conversar sobre o meu negócio." href="#contato">Falar no WhatsApp <span aria-hidden="true">↗</span></a>
@@ -252,7 +254,158 @@
             <article class="service-card spotlight-card reveal"><div class="service-icon icon-blue" aria-hidden="true">⌖</div><span class="card-number">01</span><h3>Google Meu Negócio</h3><p>Perfil completo e otimizado para o negócio aparecer melhor no Google Maps e na busca.</p><a href="servicos.html#google" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
             <article class="service-card spotlight-card reveal reveal-delay-1"><div class="service-icon icon-cyan" aria-hidden="true">⌁</div><span class="card-number">02</span><h3>Sites</h3><p>Site profissional, rápido e feito para celular. Uma vitrine digital que transmite confiança.</p><a href="servicos.html#sites" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
             <article class="service-card spotlight-card reveal reveal-delay-2"><div class="service-icon icon-purple" aria-hidden="true">↗</div><span class="card-number">03</span><h3>Páginas de venda e captura</h3><p>Páginas focadas em converter visitantes em clientes e contatos para o seu negócio.</p><a href="servicos.html#paginas" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
-            <article class="service-card spotlight-card reveal reveal-delay-3"><div class="service-icon icon-blue" aria-hidden="true">▣</div><span class="card-number">04</span><h3>Marketing indoor</h3><p>Telas dentro do estabelecimento exibindo promoções, produtos e conteúdo para aumentar as vendas.</p><a href="servicos.html#indoor" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
+            <article class="service-card spotlight-card reveal reveal-delay-3"><div class="service-icon icon-blue" aria-hidden="true">▣</div><span class="card-number">04</span><h3>Marketing indoor</h3><p>Telas dentro do estabelecimento exibindo promoções, produtos e conteúdo para aumentar as vendas.</p><a href="#indoor-showcase" class="text-link">Ver telas em ação <span aria-hidden="true">↘</span></a></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="indoor-showcase section-pad" id="indoor-showcase" aria-labelledby="indoor-title">
+        <div class="container indoor-layout">
+          <div class="indoor-copy reveal">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> Mídia Indoor DC Digital</p>
+            <h2 id="indoor-title">Nossas telas em 2 cores,<br /><span>sua marca em movimento.</span></h2>
+            <p class="indoor-lead">Totens digitais verticais de alta definição instalados em pontos estratégicos com grande circulação de pessoas — disponíveis nas versões <strong>Black Edition</strong> e <strong>White Clean</strong>.</p>
+
+            <div class="totem-color-picker" role="group" aria-label="Escolher cor da tela indoor">
+              <span class="picker-label">Acabamento do totem:</span>
+              <div class="picker-buttons">
+                <button type="button" class="totem-color-btn active" data-totem-color="black">
+                  <i class="swatch swatch-black"></i> Black Edition
+                </button>
+                <button type="button" class="totem-color-btn" data-totem-color="white">
+                  <i class="swatch swatch-white"></i> White Clean
+                </button>
+              </div>
+            </div>
+
+            <div class="indoor-ad-selector" role="tablist" aria-label="Trocar propaganda exibida na tela">
+              <span class="picker-label">Simule os anúncios rodando na tela:</span>
+              <div class="ad-pills">
+                <button type="button" class="ad-pill active" data-ad-index="0">Restaurante</button>
+                <button type="button" class="ad-pill" data-ad-index="1">Clínica Odonto</button>
+                <button type="button" class="ad-pill" data-ad-index="2">Esmalteria</button>
+                <button type="button" class="ad-pill" data-ad-index="3">Barbearia Pub</button>
+                <button type="button" class="ad-pill" data-ad-index="4">Saúde Pet</button>
+              </div>
+              <div class="ad-progress-track" aria-hidden="true">
+                <span class="ad-progress-fill" data-ad-progress></span>
+              </div>
+            </div>
+
+            <div class="indoor-cta-row">
+              <a class="button button-primary whatsapp-link" data-whatsapp-text="Olá! Vi as telas de Marketing Indoor no site da DC Digital e quero anunciar ou instalar no meu espaço." href="#contato">
+                Quero anunciar nas telas <span aria-hidden="true">↗</span>
+              </a>
+              <a class="button button-secondary" href="servicos.html#indoor">
+                Como funciona o indoor <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="indoor-stage reveal reveal-delay-1" data-indoor-stage data-active-color="black">
+            <div class="indoor-stage-glow" aria-hidden="true"></div>
+
+            <!-- Main Interactive Totem Frame -->
+            <div class="totem-frame totem-main">
+              <img class="totem-photo photo-black" src="imagens/indoor-1.png" alt="Totem DC Digital na cor preta instalado em restaurante" loading="lazy" decoding="async" />
+              <img class="totem-photo photo-white" src="imagens/indoor-2.png" alt="Totem DC Digital na cor branca instalado em restaurante" loading="lazy" decoding="async" />
+
+              <!-- Animated Digital Signage Screen Projected Inside the Physical Bezel -->
+              <div class="totem-screen-overlay" data-totem-screen>
+                <!-- Slide 0: Steinheil 16 Restaurante -->
+                <article class="screen-slide is-active" data-slide="0">
+                  <img class="slide-bg" src="https://cdn.prod.website-files.com/65c3b4971cfc9b8206b994d2/6adef4939ea64756f86c7ba3_Steinheil_Okt_2026-157-p-800.avif" alt="Prato especial Steinheil 16" loading="lazy" />
+                  <div class="slide-overlay slide-overlay-warm"></div>
+                  <div class="slide-top">
+                    <span class="slide-tag">✦ GASTRONOMIA</span>
+                    <span class="slide-live">HOJE</span>
+                  </div>
+                  <div class="slide-body">
+                    <small>STEINHEIL 16</small>
+                    <h4>SCHNITZEL CROCANTE &amp; <span>CHOPP GELADO.</span></h4>
+                    <p>O clássico alemão preparado na hora para o seu almoço ou jantar.</p>
+                  </div>
+                  <div class="slide-footer">
+                    <span><b>🍽</b> ALMOÇO</span>
+                    <span><b>🍺</b> CHOPP</span>
+                    <span><b>★</b> 4,9</span>
+                  </div>
+                </article>
+
+                <!-- Slide 1: OdontoSmile Clínica -->
+                <article class="screen-slide" data-slide="1">
+                  <img class="slide-bg" src="imagens/odontosmile-clinica.jpeg" alt="Clínica OdontoSmile" loading="lazy" />
+                  <div class="slide-overlay slide-overlay-teal"></div>
+                  <div class="slide-top">
+                    <span class="slide-tag">✚ ODONTOSMILE</span>
+                    <span class="slide-live">7 DIAS</span>
+                  </div>
+                  <div class="slide-body">
+                    <small>CUIDADO COMPLETO</small>
+                    <h4>SEU SORRISO EM <span>BOAS MÃOS.</span></h4>
+                    <p>Estética dental, implantes, ortodontia e atendimento de urgência.</p>
+                  </div>
+                  <div class="slide-footer">
+                    <span><b>✦</b> CLAREAMENTO</span>
+                    <span><b>✚</b> URGÊNCIA</span>
+                    <span><b>✓</b> AGENDE</span>
+                  </div>
+                </article>
+
+                <!-- Slide 2: Glamour Esmalteria -->
+                <article class="screen-slide" data-slide="2">
+                  <img class="slide-bg" src="imagens/glamour-esmalteria.jpeg" alt="Glamour Esmalteria Beatriz Aquino" loading="lazy" />
+                  <div class="slide-overlay slide-overlay-rose"></div>
+                  <div class="slide-top">
+                    <span class="slide-tag">✿ BELEZA &amp; BEM-ESTAR</span>
+                    <span class="slide-live">CONQUISTA</span>
+                  </div>
+                  <div class="slide-body">
+                    <small>GLAMOUR ESMALTERIA</small>
+                    <h4>UM MOMENTO SÓ <span>SEU HOJE.</span></h4>
+                    <p>Cuidado nos detalhes, ambiente acolhedor e profissionais elogiadas.</p>
+                  </div>
+                  <div class="slide-footer">
+                    <span><b>💅</b> ESMALTERIA</span>
+                    <span><b>✨</b> SPA</span>
+                    <span><b>★</b> 4,8</span>
+                  </div>
+                </article>
+
+                <!-- Slide 3: Johnnie Barber Pub -->
+                <article class="screen-slide" data-slide="3">
+                  <div class="slide-overlay slide-overlay-barber"></div>
+                  <div class="slide-top">
+                    <span class="slide-tag">✂ BARBER &amp; PUB</span>
+                    <span class="slide-live">VIP</span>
+                  </div>
+                  <div class="slide-body">
+                    <div class="slide-monogram">JB</div>
+                    <small>JOHNNIE BARBER PUBs</small>
+                    <h4>ESTILO, ATITUDE &amp; <span>CERVEJA GELADA.</span></h4>
+                    <p>Corte, barba, sinuca e resenha em um ambiente único.</p>
+                  </div>
+                  <div class="slide-footer">
+                    <span><b>✂</b> CORTE</span>
+                    <span><b>🧔</b> BARBA</span>
+                    <span><b>🎱</b> SINUCA</span>
+                  </div>
+                </article>
+
+                <!-- Slide 4: Native Pet Ad (reveals underlying photo screen!) -->
+                <article class="screen-slide screen-slide-native" data-slide="4" aria-label="Anúncio Saúde em Foco Pet"></article>
+              </div>
+            </div>
+
+            <!-- Secondary Floating Preview Card of the Other Color -->
+            <button type="button" class="totem-secondary-card" data-toggle-totem aria-label="Alternar cor do totem em destaque">
+              <img class="secondary-img img-when-black" src="imagens/indoor-2.png" alt="Versão Branca do Totem DC Digital" loading="lazy" decoding="async" />
+              <img class="secondary-img img-when-white" src="imagens/indoor-1.png" alt="Versão Preta do Totem DC Digital" loading="lazy" decoding="async" />
+              <span class="secondary-caption">
+                <strong data-secondary-label>Ver versão White Clean</strong>
+                <small>Clique para alternar ↗</small>
+              </span>
+            </button>
           </div>
         </div>
       </section>
@@ -296,16 +449,73 @@
         <div class="container">
           <div class="section-heading portfolio-heading reveal"><div><p class="eyebrow">Ideias que ganham forma</p><h2 id="portfolio-title">Projetos que <span>conectam.</span></h2></div><p>Exemplos de projetos desenvolvidos para diferentes nichos. Clique para navegar nas demonstrações.</p></div>
           <div class="portfolio-grid">
-            <article class="project-card project-restaurant reveal"><a class="project-card-hit" href="restaurante.html" aria-label="Conhecer página de referência do Steinheil 16"><div class="project-art" role="img" aria-label="Imagem de referência do restaurante Steinheil 16"><div class="restaurant-card-brand">STEINHEIL<br /><strong>16</strong></div><div class="restaurant-card-image"><img src="https://cdn.prod.website-files.com/65c3b4971cfc9b8206b994d2/6adef4939ea64756f86c7ba3_Steinheil_Okt_2026-157-p-800.avif" alt="Schnitzel do restaurante Steinheil 16" /></div><span class="restaurant-card-label">MÜNCHEN · MAXVORSTADT</span></div><div class="project-info"><div><span class="project-tag">Restaurante alemão</span><h3>Steinheil 16</h3></div><span class="project-link" aria-hidden="true">↗</span></div></a></article>
+            <article class="project-card project-restaurant reveal"><a class="project-card-hit" href="restaurante.html" aria-label="Conhecer página de referência do Steinheil 16"><div class="project-art" role="img" aria-label="Imagem de referência do restaurante Steinheil 16"><div class="restaurant-card-brand">STEINHEIL<br /><strong>16</strong></div><div class="restaurant-card-image"><img src="https://cdn.prod.website-files.com/65c3b4971cfc9b8206b994d2/6adef4939ea64756f86c7ba3_Steinheil_Okt_2026-157-p-800.avif" alt="Schnitzel do restaurante Steinheil 16" loading="lazy" decoding="async" /></div><span class="restaurant-card-label">MÜNCHEN · MAXVORSTADT</span></div><div class="project-info"><div><span class="project-tag">Restaurante alemão</span><h3>Steinheil 16</h3></div><span class="project-link" aria-hidden="true">↗</span></div></a></article>
             <article class="project-card project-barber reveal reveal-delay-1"><a class="project-card-hit" href="barbearia.html" aria-label="Conhecer página de referência da JOHNNIE BARBER PUBs"><div class="project-art" role="img" aria-label="Imagem de referência da página JOHNNIE BARBER PUBs"><div class="barber-card-brand">JOHNNIE<br /><strong>BARBER PUBs</strong></div><div class="barber-card-monogram">JB</div><span class="barber-card-stamp">EST. FOR<br />GOOD TIMES</span><span class="barber-card-star">✦</span></div><div class="project-info"><div><span class="project-tag">Barbearia</span><h3>JOHNNIE BARBER PUBs</h3></div><span class="project-link" aria-hidden="true">↗</span></div></a></article>
-            <article class="project-card project-clinic reveal reveal-delay-2"><a class="project-card-hit" href="clinica.html" aria-label="Conhecer página de referência da OdontoSmile"><div class="project-art" role="img" aria-label="Imagem de referência da clínica OdontoSmile"><div class="clinic-card-image"><img src="imagens/odontosmile-clinica.jpeg" alt="Interior da clínica OdontoSmile" /></div><div class="clinic-card-brand">Odonto<em>Smile</em></div><span class="clinic-card-label">DENTAL CARE · BRUXELLES</span></div><div class="project-info"><div><span class="project-tag">Clínica dentária</span><h3>OdontoSmile</h3></div><span class="project-link" aria-hidden="true">↗</span></div></a></article>
-            <article class="project-card project-salon reveal reveal-delay-3"><a class="project-card-hit" href="salao.html" aria-label="Conhecer página de referência da GLAMOUR ESMALTERIA BEATRIZ AQUINO"><div class="project-art" role="img" aria-label="Imagem de referência da GLAMOUR ESMALTERIA BEATRIZ AQUINO"><div class="salon-card-image"><img src="imagens/glamour-esmalteria.jpeg" alt="Foto pública da GLAMOUR ESMALTERIA BEATRIZ AQUINO" /></div><div class="salon-card-brand">GLAMOUR<br /><em>ESMALTERIA</em></div><span class="salon-card-label">BEATRIZ AQUINO · BA</span></div><div class="project-info"><div><span class="project-tag">Esmalteria</span><h3>GLAMOUR ESMALTERIA</h3></div><span class="project-link" aria-hidden="true">↗</span></div></a></article>
+            <article class="project-card project-clinic reveal reveal-delay-2"><a class="project-card-hit" href="clinica.html" aria-label="Conhecer página de referência da OdontoSmile"><div class="project-art" role="img" aria-label="Imagem de referência da clínica OdontoSmile"><div class="clinic-card-image"><img src="imagens/odontosmile-clinica.jpeg" alt="Interior da clínica OdontoSmile" loading="lazy" decoding="async" /></div><div class="clinic-card-brand">Odonto<em>Smile</em></div><span class="clinic-card-label">DENTAL CARE · BRUXELLES</span></div><div class="project-info"><div><span class="project-tag">Clínica dentária</span><h3>OdontoSmile</h3></div><span class="project-link" aria-hidden="true">↗</span></div></a></article>
+            <article class="project-card project-salon reveal reveal-delay-3"><a class="project-card-hit" href="salao.html" aria-label="Conhecer página de referência da GLAMOUR ESMALTERIA BEATRIZ AQUINO"><div class="project-art" role="img" aria-label="Imagem de referência da GLAMOUR ESMALTERIA BEATRIZ AQUINO"><div class="salon-card-image"><img src="imagens/glamour-esmalteria.jpeg" alt="Foto pública da GLAMOUR ESMALTERIA BEATRIZ AQUINO" loading="lazy" decoding="async" /></div><div class="salon-card-brand">GLAMOUR<br /><em>ESMALTERIA</em></div><span class="salon-card-label">BEATRIZ AQUINO · BA</span></div><div class="project-info"><div><span class="project-tag">Esmalteria</span><h3>GLAMOUR ESMALTERIA</h3></div><span class="project-link" aria-hidden="true">↗</span></div></a></article>
           </div>
         </div>
       </section>
 
       <section class="process section-pad" id="processo" aria-labelledby="process-title">
         <div class="container process-layout"><div class="section-heading reveal"><p class="eyebrow">Sem complicação</p><h2 id="process-title">Do primeiro papo<br />ao <span>próximo passo.</span></h2><p>Um processo próximo, claro e feito para você acompanhar tudo.</p><a class="button button-secondary whatsapp-link" data-whatsapp-text="Olá! Quero entender como funciona o processo da DC Digital para o meu negócio." href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a></div><ol class="steps steps-energized"><div class="steps-energy-track" aria-hidden="true"><span class="steps-energy-beam"></span></div><li class="step reveal reveal-delay-1"><span class="step-number">01</span><div><h3>Conversa</h3><p>Entendemos seu negócio e seu objetivo.</p></div></li><li class="step reveal reveal-delay-2"><span class="step-number">02</span><div><h3>Criação</h3><p>Desenvolvemos e entregamos o projeto.</p></div></li><li class="step reveal reveal-delay-3"><span class="step-number">03</span><div><h3>Acompanhamento</h3><p>Damos suporte e melhoramos com o tempo.</p></div></li></ol></div>
+      </section>
+
+      <section class="diagnostic section-pad" id="diagnostico" aria-labelledby="diagnostic-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Diagnóstico em 1 clique</p>
+            <h2 id="diagnostic-title">Qual é a maior prioridade<br />do seu negócio <span>hoje?</span></h2>
+            <p>Clique na opção que mais combina com o seu momento e veja por onde recomendamos começar:</p>
+          </div>
+
+          <div class="diagnostic-grid">
+            <div class="diagnostic-options reveal">
+              <button type="button" class="diag-option active" data-diag-index="0">
+                <span class="diag-num">01</span>
+                <div>
+                  <strong>Ser encontrado no Google da minha cidade</strong>
+                  <small>Quero aparecer no mapa quando procurarem meu serviço</small>
+                </div>
+              </button>
+              <button type="button" class="diag-option" data-diag-index="1">
+                <span class="diag-num">02</span>
+                <div>
+                  <strong>Ter um site profissional que passe confiança</strong>
+                  <small>Quero uma vitrine rápida no celular com meus diferenciais</small>
+                </div>
+              </button>
+              <button type="button" class="diag-option" data-diag-index="2">
+                <span class="diag-num">03</span>
+                <div>
+                  <strong>Vender uma oferta ou campanha específica</strong>
+                  <small>Preciso de uma página direta para transformar cliques em contatos</small>
+                </div>
+              </button>
+              <button type="button" class="diag-option" data-diag-index="3">
+                <span class="diag-num">04</span>
+                <div>
+                  <strong>Anunciar nas telas de Marketing Indoor</strong>
+                  <small>Quero divulgar minha marca nos totens DC Digital ou no meu ponto</small>
+                </div>
+              </button>
+            </div>
+
+            <div class="diagnostic-result spotlight-card reveal reveal-delay-1" data-diag-result>
+              <span class="compare-badge badge-highlight" data-diag-tag>Recomendação #1 · Busca Local</span>
+              <h3 data-diag-heading>Estruturação completa do Google Meu Negócio</h3>
+              <p data-diag-desc>Ideal para colocar endereço, horários, fotos estratégicas e avaliações trabalhando para gerar ligações, rotas e mensagens de quem já está procurando o que você vende.</p>
+              <ul class="diag-benefits" data-diag-list>
+                <li><span>✓</span> Otimização de categorias, descrição e serviços</li>
+                <li><span>✓</span> Orientação de fotos e rotina para ganhar avaliações</li>
+                <li><span>✓</span> Link direto para o seu WhatsApp nas buscas</li>
+              </ul>
+              <a class="button button-primary diag-cta" data-diag-cta href="https://wa.me/5577999172059?text=Ol%C3%A1!%20Fiz%20o%20diagn%C3%B3stico%20no%20site%20da%20DC%20Digital%20e%20minha%20prioridade%20hoje%20%C3%A9%20aparecer%20melhor%20no%20Google%20Meu%20Neg%C3%B3cio." target="_blank" rel="noreferrer">
+                Começar por essa solução no WhatsApp <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="faq section-pad" id="duvidas" aria-labelledby="faq-title">
