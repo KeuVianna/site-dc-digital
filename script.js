@@ -7,6 +7,13 @@ const heroConfig = {
     'barbearia aberta agora',
     'esmalteria no centro'
   ],
+  rotatingNiches: [
+    'negócios locais',
+    'clínicas e consultórios',
+    'restaurantes e bares',
+    'barbearias e salões',
+    'lojas e serviços'
+  ],
   weeklyReach: 127
 };
 
@@ -53,6 +60,29 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 }, { threshold: 0.12 });
 
 document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+
+// 1. Rotating Hero Title Word
+const rotatingWord = document.querySelector('[data-rotating-word]');
+if (rotatingWord && heroConfig.rotatingNiches.length > 1) {
+  let nicheIdx = 0;
+  window.setInterval(() => {
+    rotatingWord.classList.add('is-switching');
+    window.setTimeout(() => {
+      nicheIdx = (nicheIdx + 1) % heroConfig.rotatingNiches.length;
+      rotatingWord.textContent = heroConfig.rotatingNiches[nicheIdx];
+      rotatingWord.classList.remove('is-switching');
+    }, 280);
+  }, 3200);
+}
+
+// 2. Interactive Spotlight on Service & Comparison Cards
+document.querySelectorAll('.spotlight-card').forEach((card) => {
+  card.addEventListener('pointermove', (event) => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mouse-x', `${event.clientX - rect.left}px`);
+    card.style.setProperty('--mouse-y', `${event.clientY - rect.top}px`);
+  });
+});
 
 const heroVisual = document.querySelector('.hero-visual-modern');
 const searchText = document.querySelector('[data-search-text]');

@@ -1026,3 +1026,171 @@ h1, h2, h3, p { margin-top: 0; }h1 { max-width: 650px; margin-bottom: 22px; font
     padding: 24px 20px;
   }
 }
+
+
+/* --- 1. ROTATING HERO TITLE WORD --- */
+.hero-rotating-word {
+  display: inline-block;
+  background: linear-gradient(95deg, #38bdf8, #60a5fa, #a5f3fc, #38bdf8);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 4s linear infinite;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease, filter 0.28s ease;
+  transform-origin: left center;
+}
+.hero-rotating-word.is-switching {
+  opacity: 0;
+  transform: translateY(14px) rotateX(-35deg) scale(0.96);
+  filter: blur(5px);
+}
+
+/* --- 2. INFINITE MARQUEE STRIP --- */
+.marquee-strip {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 0;
+  background: linear-gradient(90deg, rgba(15, 22, 32, 0.9), rgba(21, 31, 46, 0.95), rgba(15, 22, 32, 0.9));
+  border-top: 1px solid rgba(56, 189, 248, 0.2);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+.marquee-strip:hover .marquee-track {
+  animation-play-state: paused;
+}
+.marquee-group {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  padding-right: 38px;
+}
+.marquee-group span {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+.marquee-group i {
+  font-style: normal;
+  color: var(--cyan);
+  font-size: 13px;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* --- 3. INTERACTIVE CURSOR SPOTLIGHT ON CARDS --- */
+.spotlight-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    360px circle at var(--mouse-x) var(--mouse-y),
+    rgba(56, 189, 248, 0.14),
+    rgba(37, 99, 235, 0.05) 45%,
+    transparent 75%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+.spotlight-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- 4. ENERGIZED TIMELINE IN "COMO FUNCIONA" --- */
+.steps-energized {
+  position: relative;
+  padding-left: 10px;
+}
+.steps-energy-track {
+  position: absolute;
+  left: 27px;
+  top: 16px;
+  bottom: 24px;
+  width: 2px;
+  background: rgba(148, 163, 184, 0.16);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.steps-energy-beam {
+  position: absolute;
+  left: 0;
+  top: -35%;
+  width: 100%;
+  height: 38%;
+  background: linear-gradient(180deg, transparent, var(--blue), var(--cyan), #ffffff, transparent);
+  box-shadow: 0 0 14px var(--cyan);
+  animation: timeline-energy-flow 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.steps-energized .step {
+  position: relative;
+  border-bottom-color: rgba(148, 163, 184, 0.1);
+}
+.steps-energized .step-number {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #111822;
+  border: 1.5px solid rgba(56, 189, 248, 0.32);
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 800;
+  position: relative;
+  z-index: 2;
+  animation: step-node-glow 3.6s ease-in-out infinite;
+}
+.steps-energized .step:nth-of-type(1) .step-number { animation-delay: 0.1s; }
+.steps-energized .step:nth-of-type(2) .step-number { animation-delay: 1.2s; }
+.steps-energized .step:nth-of-type(3) .step-number { animation-delay: 2.3s; }
+
+@keyframes timeline-energy-flow {
+  0% { top: -35%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 105%; opacity: 0; }
+}
+@keyframes step-node-glow {
+  0%, 70%, 100% {
+    border-color: rgba(56, 189, 248, 0.28);
+    box-shadow: 0 0 0 rgba(56, 189, 248, 0);
+    transform: scale(1);
+    background: #111822;
+    color: var(--cyan);
+  }
+  30% {
+    border-color: #7dd3fc;
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.65);
+    transform: scale(1.12);
+    background: rgba(37, 99, 235, 0.32);
+    color: #ffffff;
+  }
+}

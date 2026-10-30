@@ -23,9 +23,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=4" />
-    <script defer src="script.js?v=4"></script>
-    <script defer src="hero-interactions.js?v=4"></script>
+    <link rel="stylesheet" href="styles.css?v=5" />
+    <script defer src="script.js?v=5"></script>
+    <script defer src="hero-interactions.js?v=5"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -117,7 +117,7 @@
         <div class="container hero-content">
           <div class="hero-copy reveal">
             <p class="eyebrow"><span class="eyebrow-dot"></span> Digital para quem faz acontecer</p>
-            <h1 id="hero-title">Presença digital para <span>negócios locais</span></h1>
+            <h1 id="hero-title">Presença digital para <span class="hero-rotating-word" data-rotating-word>negócios locais</span></h1>
             <p class="hero-text">Google Meu Negócio, sites, páginas de venda e telas de marketing indoor para o seu negócio ser encontrado e lembrado.</p>
             <div class="hero-actions"><a class="button button-primary whatsapp-link" data-whatsapp-text="Olá! Vim pelo site da DC Digital e quero colocar meu negócio em destaque no Google e no digital." href="#contato">Falar no WhatsApp <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#servicos">Ver serviços <span aria-hidden="true">↓</span></a></div>
             <div class="hero-proof" aria-label="Especialidade da DC Digital"><div class="avatar-stack" aria-hidden="true"><span>DC</span><span>+</span><span>↗</span></div><p>Estratégia simples.<br /><strong>Presença que trabalha.</strong></p></div>
@@ -218,14 +218,41 @@
         </div><a class="scroll-hint" href="#servicos" aria-label="Rolar para serviços"><span></span> role para explorar</a>
       </section>
 
+      <div class="marquee-strip" aria-label="Soluções e segmentos atendidos pela DC Digital">
+        <div class="marquee-track">
+          <div class="marquee-group">
+            <span><i>✦</i> GOOGLE MEU NEGÓCIO</span>
+            <span><i>✦</i> SITES PROFISSIONAIS</span>
+            <span><i>✦</i> PÁGINAS DE ALTA CONVERSÃO</span>
+            <span><i>✦</i> MARKETING INDOOR</span>
+            <span><i>✦</i> MAIS CLIENTES NO WHATSAPP</span>
+            <span><i>✦</i> CLÍNICAS E CONSULTÓRIOS</span>
+            <span><i>✦</i> RESTAURANTES E BARES</span>
+            <span><i>✦</i> BARBEARIAS E SALÕES</span>
+            <span><i>✦</i> DESTAQUE NAS BUSCAS LOCAIS</span>
+          </div>
+          <div class="marquee-group" aria-hidden="true">
+            <span><i>✦</i> GOOGLE MEU NEGÓCIO</span>
+            <span><i>✦</i> SITES PROFISSIONAIS</span>
+            <span><i>✦</i> PÁGINAS DE ALTA CONVERSÃO</span>
+            <span><i>✦</i> MARKETING INDOOR</span>
+            <span><i>✦</i> MAIS CLIENTES NO WHATSAPP</span>
+            <span><i>✦</i> CLÍNICAS E CONSULTÓRIOS</span>
+            <span><i>✦</i> RESTAURANTES E BARES</span>
+            <span><i>✦</i> BARBEARIAS E SALÕES</span>
+            <span><i>✦</i> DESTAQUE NAS BUSCAS LOCAIS</span>
+          </div>
+        </div>
+      </div>
+
       <section class="services section-pad" id="servicos" aria-labelledby="services-title">
         <div class="container">
           <div class="section-heading reveal"><p class="eyebrow">O que fazemos</p><h2 id="services-title">Sua presença online,<br /><span>do jeito certo.</span></h2><p>Ferramentas digitais pensadas para trazer mais atenção, confiança e oportunidades para o seu negócio.</p></div>
           <div class="services-grid">
-            <article class="service-card reveal"><div class="service-icon icon-blue" aria-hidden="true">⌖</div><span class="card-number">01</span><h3>Google Meu Negócio</h3><p>Perfil completo e otimizado para o negócio aparecer melhor no Google Maps e na busca.</p><a href="servicos.html#google" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
-            <article class="service-card reveal reveal-delay-1"><div class="service-icon icon-cyan" aria-hidden="true">⌁</div><span class="card-number">02</span><h3>Sites</h3><p>Site profissional, rápido e feito para celular. Uma vitrine digital que transmite confiança.</p><a href="servicos.html#sites" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
-            <article class="service-card reveal reveal-delay-2"><div class="service-icon icon-purple" aria-hidden="true">↗</div><span class="card-number">03</span><h3>Páginas de venda e captura</h3><p>Páginas focadas em converter visitantes em clientes e contatos para o seu negócio.</p><a href="servicos.html#paginas" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
-            <article class="service-card reveal reveal-delay-3"><div class="service-icon icon-blue" aria-hidden="true">▣</div><span class="card-number">04</span><h3>Marketing indoor</h3><p>Telas dentro do estabelecimento exibindo promoções, produtos e conteúdo para aumentar as vendas.</p><a href="servicos.html#indoor" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
+            <article class="service-card spotlight-card reveal"><div class="service-icon icon-blue" aria-hidden="true">⌖</div><span class="card-number">01</span><h3>Google Meu Negócio</h3><p>Perfil completo e otimizado para o negócio aparecer melhor no Google Maps e na busca.</p><a href="servicos.html#google" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
+            <article class="service-card spotlight-card reveal reveal-delay-1"><div class="service-icon icon-cyan" aria-hidden="true">⌁</div><span class="card-number">02</span><h3>Sites</h3><p>Site profissional, rápido e feito para celular. Uma vitrine digital que transmite confiança.</p><a href="servicos.html#sites" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
+            <article class="service-card spotlight-card reveal reveal-delay-2"><div class="service-icon icon-purple" aria-hidden="true">↗</div><span class="card-number">03</span><h3>Páginas de venda e captura</h3><p>Páginas focadas em converter visitantes em clientes e contatos para o seu negócio.</p><a href="servicos.html#paginas" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
+            <article class="service-card spotlight-card reveal reveal-delay-3"><div class="service-icon icon-blue" aria-hidden="true">▣</div><span class="card-number">04</span><h3>Marketing indoor</h3><p>Telas dentro do estabelecimento exibindo promoções, produtos e conteúdo para aumentar as vendas.</p><a href="servicos.html#indoor" class="text-link">Entender como funciona <span aria-hidden="true">↗</span></a></article>
           </div>
         </div>
       </section>
@@ -238,7 +265,7 @@
             <p>Veja o que muda quando o seu negócio deixa de depender apenas da sorte nas buscas locais.</p>
           </div>
           <div class="comparison-grid">
-            <article class="compare-card compare-before reveal">
+            <article class="compare-card compare-before spotlight-card reveal">
               <span class="compare-badge badge-muted">Sem presença estruturada</span>
               <h3>Quando o cliente procura e encontra dúvidas</h3>
               <ul class="compare-list">
@@ -248,7 +275,7 @@
                 <li><span class="icon-no" aria-hidden="true">✕</span> Você perde tempo respondendo sempre as mesmas perguntas básicas no WhatsApp.</li>
               </ul>
             </article>
-            <article class="compare-card compare-after reveal reveal-delay-1">
+            <article class="compare-card compare-after spotlight-card reveal reveal-delay-1">
               <span class="compare-badge badge-highlight">Com a DC Digital</span>
               <h3>Quando sua presença trabalha por você 24h</h3>
               <ul class="compare-list">
@@ -278,7 +305,7 @@
       </section>
 
       <section class="process section-pad" id="processo" aria-labelledby="process-title">
-        <div class="container process-layout"><div class="section-heading reveal"><p class="eyebrow">Sem complicação</p><h2 id="process-title">Do primeiro papo<br />ao <span>próximo passo.</span></h2><p>Um processo próximo, claro e feito para você acompanhar tudo.</p><a class="button button-secondary whatsapp-link" data-whatsapp-text="Olá! Quero entender como funciona o processo da DC Digital para o meu negócio." href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a></div><ol class="steps"><li class="step reveal reveal-delay-1"><span class="step-number">01</span><div><h3>Conversa</h3><p>Entendemos seu negócio e seu objetivo.</p></div></li><li class="step reveal reveal-delay-2"><span class="step-number">02</span><div><h3>Criação</h3><p>Desenvolvemos e entregamos o projeto.</p></div></li><li class="step reveal reveal-delay-3"><span class="step-number">03</span><div><h3>Acompanhamento</h3><p>Damos suporte e melhoramos com o tempo.</p></div></li></ol></div>
+        <div class="container process-layout"><div class="section-heading reveal"><p class="eyebrow">Sem complicação</p><h2 id="process-title">Do primeiro papo<br />ao <span>próximo passo.</span></h2><p>Um processo próximo, claro e feito para você acompanhar tudo.</p><a class="button button-secondary whatsapp-link" data-whatsapp-text="Olá! Quero entender como funciona o processo da DC Digital para o meu negócio." href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a></div><ol class="steps steps-energized"><div class="steps-energy-track" aria-hidden="true"><span class="steps-energy-beam"></span></div><li class="step reveal reveal-delay-1"><span class="step-number">01</span><div><h3>Conversa</h3><p>Entendemos seu negócio e seu objetivo.</p></div></li><li class="step reveal reveal-delay-2"><span class="step-number">02</span><div><h3>Criação</h3><p>Desenvolvemos e entregamos o projeto.</p></div></li><li class="step reveal reveal-delay-3"><span class="step-number">03</span><div><h3>Acompanhamento</h3><p>Damos suporte e melhoramos com o tempo.</p></div></li></ol></div>
       </section>
 
       <section class="faq section-pad" id="duvidas" aria-labelledby="faq-title">
