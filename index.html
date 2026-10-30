@@ -23,9 +23,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=6" />
-    <script defer src="script.js?v=6"></script>
-    <script defer src="hero-interactions.js?v=6"></script>
+    <link rel="stylesheet" href="styles.css?v=7" />
+    <script defer src="script.js?v=7"></script>
+    <script defer src="hero-interactions.js?v=7"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -310,90 +310,182 @@
               <img class="totem-photo photo-black" src="imagens/indoor-1.png" alt="Totem DC Digital na cor preta instalado em restaurante" loading="lazy" decoding="async" />
               <img class="totem-photo photo-white" src="imagens/indoor-2.png" alt="Totem DC Digital na cor branca instalado em restaurante" loading="lazy" decoding="async" />
 
-              <!-- Animated Digital Signage Screen Projected Inside the Physical Bezel -->
+              <!-- Animated Digital Signage Screen Projected Inside the Physical Bezel (320x600 Virtual Canvas) -->
               <div class="totem-screen-overlay" data-totem-screen>
-                <!-- Slide 0: Steinheil 16 Restaurante -->
-                <article class="screen-slide is-active" data-slide="0">
-                  <img class="slide-bg" src="https://cdn.prod.website-files.com/65c3b4971cfc9b8206b994d2/6adef4939ea64756f86c7ba3_Steinheil_Okt_2026-157-p-800.avif" alt="Prato especial Steinheil 16" loading="lazy" />
+                <div class="screen-glass-glare" aria-hidden="true"></div>
+
+                <!-- Slide 0: Steinheil 16 Restaurante (Motion Video Spot) -->
+                <article class="screen-slide slide-theme-food is-active" data-slide="0">
+                  <div class="video-scene-bg">
+                    <img class="slide-bg" src="https://cdn.prod.website-files.com/65c3b4971cfc9b8206b994d2/6adef4939ea64756f86c7ba3_Steinheil_Okt_2026-157-p-800.avif" alt="Prato especial Steinheil 16" loading="lazy" />
+                    <div class="video-particles" aria-hidden="true">
+                      <i></i><i></i><i></i><i></i>
+                    </div>
+                  </div>
                   <div class="slide-overlay slide-overlay-warm"></div>
-                  <div class="slide-top">
-                    <span class="slide-tag">✦ GASTRONOMIA</span>
-                    <span class="slide-live">HOJE</span>
+
+                  <header class="slide-hud-top">
+                    <span class="hud-brand"><b class="hud-icon icon-amber">✦</b> STEINHEIL 16</span>
+                    <span class="hud-equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                  </header>
+
+                  <div class="slide-promo-seal seal-amber">
+                    <small>OFERTA HOJE</small>
+                    <strong>-25%</strong>
                   </div>
-                  <div class="slide-body">
-                    <small>STEINHEIL 16</small>
-                    <h4>SCHNITZEL CROCANTE &amp; <span>CHOPP GELADO.</span></h4>
-                    <p>O clássico alemão preparado na hora para o seu almoço ou jantar.</p>
+
+                  <div class="slide-kinetic-copy">
+                    <span class="kinetic-kicker">GASTRONOMIA ALEMÃ</span>
+                    <h4 class="kinetic-title">
+                      <span class="k-line l-1">SCHNITZEL</span>
+                      <span class="k-line l-2">CROCANTE &amp;</span>
+                      <span class="k-line l-3 k-accent-amber">CHOPP GELADO.</span>
+                    </h4>
                   </div>
-                  <div class="slide-footer">
-                    <span><b>🍽</b> ALMOÇO</span>
-                    <span><b>🍺</b> CHOPP</span>
-                    <span><b>★</b> 4,9</span>
-                  </div>
+
+                  <footer class="slide-curved-dock dock-warm">
+                    <div class="dock-wave-items">
+                      <span class="dock-item"><b>🍽</b><small>ALMOÇO</small></span>
+                      <span class="dock-item"><b>🍺</b><small>CHOPP</small></span>
+                      <span class="dock-item"><b>🔥</b><small>NA HORA</small></span>
+                      <span class="dock-item"><b>★</b><small>4,9</small></span>
+                    </div>
+                  </footer>
                 </article>
 
-                <!-- Slide 1: OdontoSmile Clínica -->
-                <article class="screen-slide" data-slide="1">
-                  <img class="slide-bg" src="imagens/odontosmile-clinica.jpeg" alt="Clínica OdontoSmile" loading="lazy" />
+                <!-- Slide 1: OdontoSmile Clínica (Motion Video Spot) -->
+                <article class="screen-slide slide-theme-clinic" data-slide="1">
+                  <div class="video-scene-bg">
+                    <img class="slide-bg" src="imagens/odontosmile-clinica.jpeg" alt="Clínica OdontoSmile" loading="lazy" />
+                    <div class="laser-scan-beam" aria-hidden="true"></div>
+                  </div>
                   <div class="slide-overlay slide-overlay-teal"></div>
-                  <div class="slide-top">
-                    <span class="slide-tag">✚ ODONTOSMILE</span>
-                    <span class="slide-live">7 DIAS</span>
+
+                  <header class="slide-hud-top">
+                    <span class="hud-brand"><b class="hud-icon icon-cyan">✚</b> ODONTOSMILE</span>
+                    <svg class="hud-ecg" viewBox="0 0 64 24" aria-hidden="true">
+                      <polyline points="0,12 14,12 19,4 25,20 31,8 36,15 41,12 64,12" />
+                    </svg>
+                  </header>
+
+                  <div class="slide-promo-seal seal-cyan">
+                    <small>SCANNER</small>
+                    <strong>3D</strong>
                   </div>
-                  <div class="slide-body">
-                    <small>CUIDADO COMPLETO</small>
-                    <h4>SEU SORRISO EM <span>BOAS MÃOS.</span></h4>
-                    <p>Estética dental, implantes, ortodontia e atendimento de urgência.</p>
+
+                  <div class="slide-kinetic-copy">
+                    <span class="kinetic-kicker">ESTÉTICA &amp; IMPLANTES</span>
+                    <h4 class="kinetic-title">
+                      <span class="k-line l-1">SEU SORRISO</span>
+                      <span class="k-line l-2">MAIS BRANCO</span>
+                      <span class="k-line l-3 k-accent-cyan">EM 1 SESSÃO.</span>
+                    </h4>
                   </div>
-                  <div class="slide-footer">
-                    <span><b>✦</b> CLAREAMENTO</span>
-                    <span><b>✚</b> URGÊNCIA</span>
-                    <span><b>✓</b> AGENDE</span>
-                  </div>
+
+                  <footer class="slide-curved-dock dock-teal">
+                    <div class="dock-wave-items">
+                      <span class="dock-item"><b>✦</b><small>LASER</small></span>
+                      <span class="dock-item"><b>🦷</b><small>IMPLANTE</small></span>
+                      <span class="dock-item"><b>⚡</b><small>URGÊNCIA</small></span>
+                      <span class="dock-item"><b>✓</b><small>7 DIAS</small></span>
+                    </div>
+                  </footer>
                 </article>
 
-                <!-- Slide 2: Glamour Esmalteria -->
-                <article class="screen-slide" data-slide="2">
-                  <img class="slide-bg" src="imagens/glamour-esmalteria.jpeg" alt="Glamour Esmalteria Beatriz Aquino" loading="lazy" />
+                <!-- Slide 2: Glamour Esmalteria (Motion Video Spot) -->
+                <article class="screen-slide slide-theme-salon" data-slide="2">
+                  <div class="video-scene-bg">
+                    <img class="slide-bg" src="imagens/glamour-esmalteria.jpeg" alt="Glamour Esmalteria Beatriz Aquino" loading="lazy" />
+                    <div class="video-particles particles-rose" aria-hidden="true">
+                      <i></i><i></i><i></i><i></i>
+                    </div>
+                  </div>
                   <div class="slide-overlay slide-overlay-rose"></div>
-                  <div class="slide-top">
-                    <span class="slide-tag">✿ BELEZA &amp; BEM-ESTAR</span>
-                    <span class="slide-live">CONQUISTA</span>
+
+                  <header class="slide-hud-top">
+                    <span class="hud-brand"><b class="hud-icon icon-rose">✿</b> GLAMOUR NAILS</span>
+                    <span class="hud-equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                  </header>
+
+                  <div class="slide-promo-seal seal-rose">
+                    <small>COMBO</small>
+                    <strong>VIP</strong>
                   </div>
-                  <div class="slide-body">
-                    <small>GLAMOUR ESMALTERIA</small>
-                    <h4>UM MOMENTO SÓ <span>SEU HOJE.</span></h4>
-                    <p>Cuidado nos detalhes, ambiente acolhedor e profissionais elogiadas.</p>
+
+                  <div class="slide-kinetic-copy">
+                    <span class="kinetic-kicker">BELEZA &amp; BEM-ESTAR</span>
+                    <h4 class="kinetic-title">
+                      <span class="k-line l-1">CUIDADO,</span>
+                      <span class="k-line l-2">BRILHO &amp;</span>
+                      <span class="k-line l-3 k-accent-rose">AUTOESTIMA.</span>
+                    </h4>
                   </div>
-                  <div class="slide-footer">
-                    <span><b>💅</b> ESMALTERIA</span>
-                    <span><b>✨</b> SPA</span>
-                    <span><b>★</b> 4,8</span>
-                  </div>
+
+                  <footer class="slide-curved-dock dock-rose">
+                    <div class="dock-wave-items">
+                      <span class="dock-item"><b>💅</b><small>GEL</small></span>
+                      <span class="dock-item"><b>✨</b><small>SPA PÉS</small></span>
+                      <span class="dock-item"><b>🌸</b><small>RELAX</small></span>
+                      <span class="dock-item"><b>★</b><small>4,8</small></span>
+                    </div>
+                  </footer>
                 </article>
 
-                <!-- Slide 3: Johnnie Barber Pub -->
-                <article class="screen-slide" data-slide="3">
+                <!-- Slide 3: Johnnie Barber Pub (Motion Video Spot) -->
+                <article class="screen-slide slide-theme-barber" data-slide="3">
+                  <div class="video-scene-bg barber-animated-bg">
+                    <div class="barber-neon-ring" aria-hidden="true"></div>
+                    <div class="video-particles particles-gold" aria-hidden="true">
+                      <i></i><i></i><i></i><i></i>
+                    </div>
+                  </div>
                   <div class="slide-overlay slide-overlay-barber"></div>
-                  <div class="slide-top">
-                    <span class="slide-tag">✂ BARBER &amp; PUB</span>
-                    <span class="slide-live">VIP</span>
+
+                  <header class="slide-hud-top">
+                    <span class="hud-brand"><b class="hud-icon icon-amber">✂</b> JOHNNIE BARBER</span>
+                    <span class="hud-equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                  </header>
+
+                  <div class="slide-monogram-animated">
+                    <span>JB</span>
+                    <small>BARBER PUB</small>
                   </div>
-                  <div class="slide-body">
-                    <div class="slide-monogram">JB</div>
-                    <small>JOHNNIE BARBER PUBs</small>
-                    <h4>ESTILO, ATITUDE &amp; <span>CERVEJA GELADA.</span></h4>
-                    <p>Corte, barba, sinuca e resenha em um ambiente único.</p>
+
+                  <div class="slide-kinetic-copy">
+                    <span class="kinetic-kicker">1º CHOPP CORTESIA</span>
+                    <h4 class="kinetic-title">
+                      <span class="k-line l-1">ESTILO,</span>
+                      <span class="k-line l-2">BARBA NA RÉGUA</span>
+                      <span class="k-line l-3 k-accent-amber">&amp; CERVEJA.</span>
+                    </h4>
                   </div>
-                  <div class="slide-footer">
-                    <span><b>✂</b> CORTE</span>
-                    <span><b>🧔</b> BARBA</span>
-                    <span><b>🎱</b> SINUCA</span>
+
+                  <footer class="slide-curved-dock dock-gold">
+                    <div class="dock-wave-items">
+                      <span class="dock-item"><b>✂</b><small>CORTE</small></span>
+                      <span class="dock-item"><b>🧔</b><small>BARBA</small></span>
+                      <span class="dock-item"><b>🍺</b><small>CHOPP</small></span>
+                      <span class="dock-item"><b>🎱</b><small>SINUCA</small></span>
+                    </div>
+                  </footer>
+                </article>
+
+                <!-- Slide 4: Native Pet Ad (Reveals Original Photo + Animated HUD Wave Overlay) -->
+                <article class="screen-slide screen-slide-native" data-slide="4" aria-label="Anúncio Saúde em Foco Pet">
+                  <div class="native-live-effects" aria-hidden="true">
+                    <span class="native-heartbeat-glow"></span>
+                    <span class="native-scan-shimmer"></span>
+                    <div class="native-bottom-pulses">
+                      <i></i><i></i><i></i><i></i>
+                    </div>
                   </div>
                 </article>
 
-                <!-- Slide 4: Native Pet Ad (reveals underlying photo screen!) -->
-                <article class="screen-slide screen-slide-native" data-slide="4" aria-label="Anúncio Saúde em Foco Pet"></article>
+                <!-- Bottom Video Player Bar -->
+                <div class="screen-video-bar" aria-hidden="true">
+                  <span class="video-play-pill">▶ VÍDEO HD</span>
+                  <div class="video-mini-timeline"><span data-screen-progress></span></div>
+                </div>
               </div>
             </div>
 

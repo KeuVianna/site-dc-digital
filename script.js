@@ -113,14 +113,80 @@ document.querySelectorAll('.spotlight-card').forEach((card) => {
 // 3. Indoor Totem Color & Ad Carousel Controller
 const indoorStage = document.querySelector('[data-indoor-stage]');
 if (indoorStage) {
+  const totemFrame = indoorStage.querySelector('.totem-frame');
+  const totemScreen = indoorStage.querySelector('[data-totem-screen]');
   const colorButtons = document.querySelectorAll('[data-totem-color]');
   const toggleBtn = document.querySelector('[data-toggle-totem]');
   const secondaryLabel = document.querySelector('[data-secondary-label]');
   const adPills = Array.from(document.querySelectorAll('[data-ad-index]'));
   const slides = Array.from(indoorStage.querySelectorAll('.screen-slide'));
   const progressFill = document.querySelector('[data-ad-progress]');
+  const screenProgressFill = indoorStage.querySelector('[data-screen-progress]');
+
+  // Normalized 4-corner bezel coordinates [TL, TR, BR, BL] measured directly from indoor-1.png & indoor-2.png
+  const SCREEN_QUADS = {
+    black: {
+      aspect: 1444 / 1089,
+      corners: [
+        [470 / 1089, 381 / 1444],
+        [783 / 1089, 353 / 1444],
+        [783 / 1089, 993 / 1444],
+        [470 / 1089, 983 / 1444]
+      ]
+    },
+    white: {
+      aspect: 1537 / 1023,
+      corners: [
+        [370 / 1023, 407 / 1537],
+        [646 / 1023, 429 / 1537],
+        [646 / 1023, 976 / 1537],
+        [370 / 1023, 984 / 1537]
+      ]
+    }
+  };
+
+  const computeHomographyMatrix3d = (W, H, pts) => {
+    const [p0, p1, p2, p3] = pts;
+    const x0 = p0[0], y0 = p0[1];
+    const x1 = p1[0], y1 = p1[1];
+    const x2 = p2[0], y2 = p2[1];
+    const x3 = p3[0], y3 = p3[1];
+
+    const dx1 = x1 - x2, dx2 = x3 - x2, sx = x0 - x1 + x2 - x3;
+    const dy1 = y1 - y2, dy2 = y3 - y2, sy = y0 - y1 + y2 - y3;
+    const det = dx1 * dy2 - dx2 * dy1;
+    if (Math.abs(det) < 1e-9) return 'none';
+
+    const g = (sx * dy2 - dx2 * sy) / det;
+    const h = (dx1 * sy - sx * dy1) / det;
+    const a = x1 - x0 + g * x1;
+    const b = x3 - x0 + h * x3;
+    const c = x0;
+    const d = y1 - y0 + g * y1;
+    const e = y3 - y0 + h * y3;
+    const f = y0;
+
+    const m = [
+      a / W, d / W, 0, g / W,
+      b / H, e / H, 0, h / H,
+      0,     0,     1, 0,
+      c,     f,     0, 1
+    ];
+    return `matrix3d(${m.map((v) => Number(v.toFixed(7))).join(',')})`;
+  };
+
+  const updateTotemScreenHomography = () => {
+    if (!totemFrame || !totemScreen) return;
+    const color = indoorStage.getAttribute('data-active-color') || 'black';
+    const cfg = SCREEN_QUADS[color] || SCREEN_QUADS.black;
+    const fw = totemFrame.clientWidth || 380;
+    const fh = totemFrame.clientHeight > 80 ? totemFrame.clientHeight : fw * cfg.aspect;
+    const pixelCorners = cfg.corners.map(([nx, ny]) => [nx * fw, ny * fh]);
+    totemScreen.style.transform = computeHomographyMatrix3d(320, 600, pixelCorners);
+  };
 
   const setTotemColor = (color) => {
+    const prev = indoorStage.getAttribute('data-active-color');
     indoorStage.setAttribute('data-active-color', color);
     colorButtons.forEach((btn) => {
       btn.classList.toggle('active', btn.getAttribute('data-totem-color') === color);
@@ -129,6 +195,12 @@ if (indoorStage) {
       secondaryLabel.textContent =
         color === 'black' ? 'Ver versão White Clean' : 'Ver versão Black Edition';
     }
+    if (totemFrame && prev !== color) {
+      totemFrame.classList.remove('is-switching-totem');
+      void totemFrame.offsetWidth;
+      totemFrame.classList.add('is-switching-totem');
+    }
+    window.requestAnimationFrame(updateTotemScreenHomography);
   };
 
   colorButtons.forEach((btn) => {
@@ -142,17 +214,28 @@ if (indoorStage) {
     });
   }
 
+  indoorStage.querySelectorAll('.totem-photo').forEach((img) => {
+    img.addEventListener('load', updateTotemScreenHomography);
+  });
+  window.addEventListener('resize', updateTotemScreenHomography, { passive: true });
+  if ('ResizeObserver' in window && totemFrame) {
+    new ResizeObserver(updateTotemScreenHomography).observe(totemFrame);
+  }
+  updateTotemScreenHomography();
+
   let currentAd = 0;
   let adTimer = 0;
-  const AD_DURATION = 4200;
+  const AD_DURATION = 4800;
 
   const restartProgress = () => {
-    if (!progressFill) return;
-    progressFill.style.transition = 'none';
-    progressFill.style.width = '0%';
-    void progressFill.offsetWidth;
-    progressFill.style.transition = `width ${AD_DURATION}ms linear`;
-    progressFill.style.width = '100%';
+    [progressFill, screenProgressFill].forEach((bar) => {
+      if (!bar) return;
+      bar.style.transition = 'none';
+      bar.style.width = '0%';
+      void bar.offsetWidth;
+      bar.style.transition = `width ${AD_DURATION}ms linear`;
+      bar.style.width = '100%';
+    });
   };
 
   const showAd = (index) => {
