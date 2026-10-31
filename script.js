@@ -9,10 +9,11 @@ const heroConfig = {
   ],
   rotatingNiches: [
     'negócios locais',
-    'clínicas e consultórios',
-    'restaurantes e bares',
-    'barbearias e salões',
-    'lojas e serviços'
+    'sua clínica',
+    'seu restaurante',
+    'sua barbearia',
+    'seu salão',
+    'sua empresa'
   ],
   weeklyReach: 127
 };
@@ -87,18 +88,48 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 
 document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
 
-// 1. Rotating Hero Title Word
+// 1. Rotating Hero Title Word (Paused when out of view, Zero CLS Layout Lock)
+const heroSection = document.querySelector('.hero');
 const rotatingWord = document.querySelector('[data-rotating-word]');
 if (rotatingWord && heroConfig.rotatingNiches.length > 1) {
   let nicheIdx = 0;
-  window.setInterval(() => {
+  let rotateTimer = null;
+
+  const rotateStep = () => {
     rotatingWord.classList.add('is-switching');
     window.setTimeout(() => {
       nicheIdx = (nicheIdx + 1) % heroConfig.rotatingNiches.length;
       rotatingWord.textContent = heroConfig.rotatingNiches[nicheIdx];
       rotatingWord.classList.remove('is-switching');
     }, 280);
-  }, 3200);
+  };
+
+  const startRotation = () => {
+    if (rotateTimer) return;
+    rotateTimer = window.setInterval(rotateStep, 3200);
+  };
+
+  const stopRotation = () => {
+    if (rotateTimer) {
+      window.clearInterval(rotateTimer);
+      rotateTimer = null;
+    }
+  };
+
+  if ('IntersectionObserver' in window && heroSection) {
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          startRotation();
+        } else {
+          stopRotation();
+        }
+      });
+    }, { threshold: 0.05 });
+    heroObserver.observe(heroSection);
+  } else {
+    startRotation();
+  }
 }
 
 // 2. Interactive Spotlight on Cards
