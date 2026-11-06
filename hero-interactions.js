@@ -79,7 +79,7 @@
   visual.addEventListener('pointerenter', start);
   visual.addEventListener('pointerleave', stop);
 
-  const pins = visual.querySelectorAll('.map-pin');
+  const pins = visual.querySelectorAll('.gmap-marker, .gmap-featured-container, .map-pin');
   pins.forEach((pin) => {
     pin.addEventListener('click', () => pin.classList.toggle('pin-selected'));
     pin.addEventListener('keydown', (event) => {
