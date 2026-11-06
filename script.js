@@ -18,6 +18,7 @@ const heroConfig = {
   weeklyReach: 127
 };
 
+// WhatsApp Link Formatter
 document.querySelectorAll('.whatsapp-link').forEach((link) => {
   const customMessage = link.getAttribute('data-whatsapp-text') || defaultWhatsappMessage;
   link.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(customMessage)}`;
@@ -25,19 +26,20 @@ document.querySelectorAll('.whatsapp-link').forEach((link) => {
   link.rel = 'noreferrer';
 });
 
-const header = document.querySelector('.site-header');
+// Navbar & Reading Progress Bar
+const navbar = document.querySelector('.navbar');
 const scrollProgress = document.querySelector('[data-scroll-progress]');
 const menuToggle = document.querySelector('.menu-toggle');
-const mobileNav = document.querySelector('.mobile-nav');
-const navLinks = Array.from(document.querySelectorAll('.desktop-nav a[href^="#"]'));
+const mobileMenu = document.querySelector('#mobileMenu');
+const navLinks = Array.from(document.querySelectorAll('.navbar-links a[href^="#"]'));
 const trackedSections = navLinks
   .map((link) => document.querySelector(link.getAttribute('href')))
   .filter(Boolean);
 
 function updateScrollUI() {
   const scrollTop = window.scrollY;
-  if (header) {
-    header.classList.toggle('scrolled', scrollTop > 20);
+  if (navbar) {
+    navbar.classList.toggle('scrolled', scrollTop > 20);
   }
   if (scrollProgress) {
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -61,34 +63,39 @@ function updateScrollUI() {
 window.addEventListener('scroll', updateScrollUI, { passive: true });
 updateScrollUI();
 
-if (menuToggle && mobileNav) {
+// Mobile Navigation Toggle
+if (menuToggle && mobileMenu) {
   menuToggle.addEventListener('click', () => {
-    const isOpen = mobileNav.classList.toggle('open');
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    navbar.classList.toggle('menu-open', isOpen);
     menuToggle.setAttribute('aria-expanded', String(isOpen));
-    menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
   });
 
-  document.querySelectorAll('.mobile-nav a').forEach((link) => {
+  mobileMenu.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      mobileNav.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      menuToggle.classList.remove('open');
+      navbar.classList.remove('menu-open');
       menuToggle.setAttribute('aria-expanded', 'false');
-      menuToggle.setAttribute('aria-label', 'Abrir menu');
     });
   });
 }
 
+// Reveal Observer for io-reveal and reveal elements
 const revealObserver = new IntersectionObserver((entries, observer) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
+      entry.target.classList.add('in');
       entry.target.classList.add('is-visible');
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.12 });
+}, { threshold: 0.1 });
 
-document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+document.querySelectorAll('.io-reveal, .reveal').forEach((el) => revealObserver.observe(el));
 
-// 1. Rotating Hero Title Word (Paused when out of view, Zero CLS Layout Lock)
+// 1. Rotating Hero Title Word (Paused when out of view, Zero CLS)
 const heroSection = document.querySelector('.hero');
 const rotatingWord = document.querySelector('[data-rotating-word]');
 if (rotatingWord && heroConfig.rotatingNiches.length > 1) {
@@ -132,16 +139,7 @@ if (rotatingWord && heroConfig.rotatingNiches.length > 1) {
   }
 }
 
-// 2. Interactive Spotlight on Cards
-document.querySelectorAll('.spotlight-card').forEach((card) => {
-  card.addEventListener('pointermove', (event) => {
-    const rect = card.getBoundingClientRect();
-    card.style.setProperty('--mouse-x', `${event.clientX - rect.left}px`);
-    card.style.setProperty('--mouse-y', `${event.clientY - rect.top}px`);
-  });
-});
-
-// 3. Indoor Totem Color & Ad Carousel Controller
+// 2. Indoor Totem Color & Ad Carousel Controller
 const indoorStage = document.querySelector('[data-indoor-stage]');
 if (indoorStage) {
   const totemFrame = indoorStage.querySelector('.totem-frame');
@@ -154,7 +152,6 @@ if (indoorStage) {
   const progressFill = document.querySelector('[data-ad-progress]');
   const screenProgressFill = indoorStage.querySelector('[data-screen-progress]');
 
-  // Normalized 4-corner bezel coordinates [TL, TR, BR, BL] measured directly from indoor-1.png & indoor-2.png
   const SCREEN_QUADS = {
     black: {
       aspect: 1444 / 1089,
@@ -298,89 +295,7 @@ if (indoorStage) {
   startAdLoop();
 }
 
-// 4. Interactive 1-Click Diagnostic
-const diagData = [
-  {
-    tag: 'Recomendação #1 · Busca Local',
-    heading: 'Estruturação completa do Google Meu Negócio',
-    desc: 'Ideal para colocar endereço, horários, fotos estratégicas e avaliações trabalhando para gerar ligações, rotas e mensagens de quem já está procurando o que você vende.',
-    benefits: [
-      'Otimização de categorias, descrição e serviços',
-      'Orientação de fotos e rotina para ganhar avaliações',
-      'Link direto para o seu WhatsApp nas buscas'
-    ],
-    waText: 'Olá! Fiz o diagnóstico no site da DC Digital e minha prioridade hoje é aparecer melhor no Google Meu Negócio.'
-  },
-  {
-    tag: 'Recomendação #2 · Vitrine 24h',
-    heading: 'Site Profissional Rápido e Feito para Celular',
-    desc: 'Perfeito para apresentar sua empresa com autoridade, organizar seus serviços, mostrar seu portfólio e facilitar o contato imediato pelo WhatsApp.',
-    benefits: [
-      'Design moderno que carrega rápido no 4G/5G',
-      'Textos claros pensados para gerar confiança',
-      'Domínio próprio com cadeado de segurança HTTPS'
-    ],
-    waText: 'Olá! Fiz o diagnóstico no site da DC Digital e minha prioridade hoje é criar um site profissional para o meu negócio.'
-  },
-  {
-    tag: 'Recomendação #3 · Conversão Direta',
-    heading: 'Página de Venda e Captura de Alta Conversão',
-    desc: 'Focada em uma única oferta ou campanha para transformar visitantes de anúncios e redes sociais em clientes chamando no seu WhatsApp sem distrações.',
-    benefits: [
-      'Sequência persuasiva: problema, proposta, prova e ação',
-      'Leitura escaneável e botões estratégicos ao longo da tela',
-      'Pronta para receber tráfego do Instagram e Google Ads'
-    ],
-    waText: 'Olá! Fiz o diagnóstico no site da DC Digital e quero criar uma página de vendas/captura para uma oferta do meu negócio.'
-  },
-  {
-    tag: 'Recomendação #4 · Ponto de Venda & Mídia',
-    heading: 'Marketing Indoor nas Telas DC Digital',
-    desc: 'Destaque sua marca, promoções e serviços em nossos totens digitais (Black Edition e White Clean) com alta circulação de público ou dentro do seu próprio estabelecimento.',
-    benefits: [
-      'Anúncios em vídeo e animações que capturam o olhar',
-      'Totens elegantes em 2 cores nos melhores pontos',
-      'Programação atualizável para ofertas da semana'
-    ],
-    waText: 'Olá! Fiz o diagnóstico no site da DC Digital e quero anunciar ou instalar as telas de Marketing Indoor.'
-  }
-];
-
-const diagButtons = document.querySelectorAll('[data-diag-index]');
-const diagResult = document.querySelector('[data-diag-result]');
-if (diagButtons.length && diagResult) {
-  const tagEl = diagResult.querySelector('[data-diag-tag]');
-  const headingEl = diagResult.querySelector('[data-diag-heading]');
-  const descEl = diagResult.querySelector('[data-diag-desc]');
-  const listEl = diagResult.querySelector('[data-diag-list]');
-  const ctaEl = diagResult.querySelector('[data-diag-cta]');
-
-  diagButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const idx = Number(btn.getAttribute('data-diag-index')) || 0;
-      const item = diagData[idx];
-      if (!item) return;
-
-      diagButtons.forEach((b) => b.classList.toggle('active', b === btn));
-      diagResult.classList.remove('diag-flash');
-      void diagResult.offsetWidth;
-      diagResult.classList.add('diag-flash');
-
-      if (tagEl) tagEl.textContent = item.tag;
-      if (headingEl) headingEl.textContent = item.heading;
-      if (descEl) descEl.textContent = item.desc;
-      if (listEl) {
-        listEl.innerHTML = item.benefits
-          .map((text) => `<li><span>✓</span> ${text}</li>`)
-          .join('');
-      }
-      if (ctaEl) {
-        ctaEl.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(item.waText)}`;
-      }
-    });
-  });
-}
-
+// 3. Hero Visual Map Radar Search & Counter
 const heroVisual = document.querySelector('.hero-visual-modern');
 const searchText = document.querySelector('[data-search-text]');
 const counter = document.querySelector('[data-counter]');
