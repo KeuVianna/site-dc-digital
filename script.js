@@ -8,12 +8,12 @@ const heroConfig = {
     'esmalteria no centro'
   ],
   rotatingNiches: [
-    'negócios locais',
-    'sua clínica',
-    'seu restaurante',
-    'sua barbearia',
-    'seu salão',
-    'sua empresa'
+    'o seu negócio',
+    'a sua clínica',
+    'o seu restaurante',
+    'a sua barbearia',
+    'o seu salão',
+    'a sua loja'
   ],
   weeklyReach: 127
 };
